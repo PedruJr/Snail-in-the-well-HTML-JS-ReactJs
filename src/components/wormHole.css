@@ -30,9 +30,9 @@ header {
   .inputs span,
   .worm-section span{
     display: block;
-    margin: 0.5em 7em;
     color: gray;
     font-weight: bold;
+    text-align: center;
   }
   
    input {
@@ -76,7 +76,7 @@ header {
   
   /* Worm section */
   .worm-section button {
-    margin: 0 5em;
+    margin: 1em 5em;
   }
   
   .worm-section img{
@@ -84,28 +84,32 @@ header {
     margin: -1.2em 5em;
   }
   
+  .noColor {
+    background-color: #f0f0f5;
+    transition: 1s;
+  }
+
   .green {
     background-color: #2EE59D;
     border-top: 2px solid green;
     border-bottom: 2px solid green;
+    transition: 1s;
+
   }
   
   .yellow {
     background-color: #e5e22e;
     border-top: 2px solid yellow;
     border-bottom: 2px solid yellow;
+    transition: 0.5s;
   }
   
   /*Media adjust */
   @media (min-width: 650px) {
-    .container{
-      display: flex;
-      align-items: center;
-      align-content: center;
-      flex-direction: column;
-    }
-  
+
+    
     .content {
+      width:500px;
       display: flex;
       align-items: center;
       align-content: center;
@@ -114,34 +118,28 @@ header {
       background-color: #fff;
       border: 1px solid lightgray;
       box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-      margin: 2em 0;
+      margin: 1em auto;
     }
-  
-     input {
-      width: 100%;
-      margin: 0.5em auto;
+    
+    .inputs{
+      margin-left: -4em;
+    }
+
+    .inputs span{
+      margin-left: 3em;
+    }
+
+    input {
+      width: 90%;
       display: block;
     }
   
-    .inputs span {
-      margin-left: 5em;
-    }
-  
     .inputs button {
-      margin-left: 3em;
-    }
-  
-    .worm-section span {
-      margin: 0.4em 12em;
+      margin: 1em 5.5em;
     }
   
     .worm-section button{
-      margin: 0 5.5em 1em;
-    }
-  
-    .worm-section img{
-      margin: -1.5em ;
-      margin-left: 5em;
+      margin: 1em 7em;
     }
   
   }
