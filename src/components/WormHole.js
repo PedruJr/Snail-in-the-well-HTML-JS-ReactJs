@@ -2,45 +2,40 @@ import React, { useState } from "react";
 import worm from "../assets/worm.png";
 import "./wormHole.css";
 
+// COMPONENTE
 export default function WormHole() {
+
+  // VARIAVEIS DINAMICAS
   const [hole, setHole] = useState(20);
   const [climb, setClimb] = useState(5);
   const [fall, setFall] = useState(2);
-  const [stop, setStop] = useState(1);
-  const [totalClimb, setTotalClimb] = useState(0);
-  const [index, setIndex] = useState(0);
   const [css, setCss] = useState("noColor");
   const [text, setText] = useState("Inicie o percurso!");
+  const [topText, setTopText] = useState("Defina os valores em cm!");
 
+  //DADOS PARAMETROS PARA A LOGICA
   const data = {
     hole,
     climb,
     fall,
-    stop,
-    totalClimb,
-    index,
     css,
   };
 
-  function cssYellow() {
-    setCss("yellow");
-  }
-
-  function cssGreen() {
-    setCss("green");
-  }
-
+  // ESTRUTURA DO METODO PARA FUGIR DO BURACO
   function startClimbing(event) {
+    //PREVINIR ATUALIZAÇÃO NA PAGINA
     event.preventDefault();
 
+    // VARIAVEIS AUXILIARES
     var half = data.hole / 2;
     let total = 0;
     let i = 0;
-    let oneSecond = 0;
 
+    //RESETS E SETS P/ ANUNCIAR O INICIO DA FUNÇÃO
     setText("A minhoca iniciou sua jornada!");
     setCss("none");
 
+    //METODO PROMISE PARA ESPERAR O TEMPO DESEJADO ATRAVEZ DE ASYNC AWAIT
     const sleep = (ms) => {
       return new Promise((resolve) => setTimeout(resolve, ms));
     };
@@ -49,44 +44,48 @@ export default function WormHole() {
       return sleep(1000).then(console.log("one second..."));
     }
 
+    //VERIFICAR NO CONSOLE A DATA RECEBIDA
     console.log(data);
 
+    //ESTRUTURA FOR DENTRO DE VAR P/ APLICAR ASYNC E AWAIT
     const forLoop = async () => {
+
       for (; total <= data.hole; ) {
-        oneSecond = await oneSec();
+        await oneSec();
 
         total = total + data.climb - data.fall;
         console.log(total);
         i++;
 
         if (total <= half) {
-            setText("A minhoca subiu: "+i+" vezes")
+          setText("A minhoca subiu: " + i + " vezes");
         }
+
         if (total >= half) {
-          cssYellow();
+          setCss("yellow");
           setText(
             "A minhoca esta na metade do buraco! subindo um total de: " +
               i +
               " vezes"
           );
-          console.log(data.css);
         }
         if (total > data.hole) {
-          cssGreen();
+          setCss("green");
           setText(
             "A minhoca saiu do buraco! subindo um total de: " + i + " vezes"
           );
-          console.log("green works");
         }
       }
     };
-
+    //CHAMANDO O LOOP
     forLoop();
   }
 
+  //FUNÇÃO PARA ATIVAR O SUBMIT DO FORMS
   function setValues(event) {
     event.preventDefault();
     console.log(data);
+    setTopText("Valores definidos!");
   }
 
   return (
@@ -96,7 +95,7 @@ export default function WormHole() {
       <div className="content">
         <section className="inputs">
           <form onSubmit={setValues}>
-            <span className="inputs-span">Defina os valores em cm! </span>
+            <span className="inputs-span">{topText}</span>
             <input
               type="number"
               onChange={(e) => setHole(parseInt(e.target.value))}
